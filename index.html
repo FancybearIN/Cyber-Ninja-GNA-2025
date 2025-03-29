@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header { background: #333; color: #fff; padding: 15px; text-align: center; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: center; gap: 20px; }
+        nav a { color: white; text-decoration: none; padding: 10px; transition: background 0.3s; }
+        nav a:hover { background: #555; }
+        section { padding: 60px 20px; text-align: center; }
+        .hero { height: 100vh; background: black; color: white; display: flex; align-items: center; justify-content: center; }
+        .about, .contact { background: #f4f4f4; padding-top: 80px; }
+        .contact-form { max-width: 400px; margin: auto; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
+        button { padding: 10px 20px; background: #333; color: white; border: none; cursor: pointer; }
+        button:hover { background: #555; }
+        html { scroll-behavior: smooth; }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+    
+</head>
+<body>
+   
+    <header>
+        <nav>
+            <div class="navbar-brand">Static Analysis vulnerabilities</div>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#code-editor">Code Upload</a>
+            <a href="#blog">Blog</a>
+            <a href="#documentation">Documentation</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <section id="home" class="hero" style="background-image: url('image/cyber.jpg');">
+        <h1 class="moving-text">Android Pentesting Framework</h1>
+       
+           
+    </section>
+
+<hr>
+    <section id="apk-upload" class="apk-upload">
+        <h2>Upload APK File</h2>
+        <input type="file" id="apkFile" accept=".apk">
+        <button onclick="uploadAPK()">Upload APK</button>
+        <p id="uploadResult"></p>
+        
+
+        
+    </section>
+
+<hr>
+    
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>This is a simple single-page website using HTML, CSS, and JavaScript.</p>
+        <p>A Static Analysis Framework is a tool or set of tools designed to analyze source code without executing it. 
+            It helps detect bugs, vulnerabilities, code smells, and compliance issues early in the development process.</p>
+<hr>
+            <p> For your hackathon, you might consider:</p>
+            <br>
+           <p>✅ Building a lightweight static analysis tool for security or performance optimization.</p>
+        <br>
+           <p>✅ Integrating AI/ML to predict potential code issues.</p>
+           <br>
+           <p>✅ Developing a web-based dashboard to visualize analysis reports.</p>
+           <br>
+           <p>✅ Focusing on specific languages (e.g., C++, JavaScript, Python).</p> <br>
+          
+    </section>
+    
+
+
+
+    <section id="code-editor" class="code-editor">
+        <h2>Code Upload & Live Editor</h2>
+        <input type="file" id="fileInput">
+        <select id="languageSelect">
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="clike">C/C++</option>
+            <option value="htmlmixed">HTML</option>
+        </select>
+        <textarea id="codeEditor"></textarea>
+        <button onclick="downloadCode()">Download Code</button>
+    </section>
+     
+
+<!-- htmlblog section -->
+<section id="blog" class="blog">
+    <h2>Our Blog</h2>
+    <div class="blog-container" id="blog-container"></div>
+    <div class="blog-form">
+        <h3>Create a New Blog Post</h3>
+        <input type="text" id="blogTitle" placeholder="Title">
+        <textarea id="blogContent" placeholder="Write your blog here..."></textarea>
+        <button onclick="addBlogPost()">Post Blog</button>
+    </div>
+</section>
+
+
+<!-- Documentation  -->
+
+<section id="documentation" class="documentation">
+    <h2>Documentation</h2>
+    <hr>
+    <H4>Here's a well-structured documentation page for the DroidSentinel project, ready for web
+        display.</H4>
+        <H3>🔥Overview</H3>
+           <P> <B>DroidSentinel is an open-source, static vulnerability scanner designed for Android APK files. It
+            identifies security issues, hardcoded secrets, and potential privacy risks in APKs. The tool
+            provides comprehensive reports with detailed risk scoring, helping security professionals
+            prioritize vulnerabilities </B></P>
+
+    <div class="doc-container">
+        <div class="doc-item">
+            <h3>Getting Started</h3>
+            <hr>
+           <H4>🚀Installation </H4> 
+            <H5>✅Prerequisites</H5>
+            <P> -> Python 3.6 or higher</P>
+            <P> -> apktool (automatically installed on Linux/macOS if missing)</P>
+            <p>Learn how to set up and start using the platform.</p>
+            <a href="https://github.com/FancybearIN/Anoy/blob/main/Readme.md">Read more...</a>
+        </div>
+
+        <div class="doc-item">
+            <h3>🛠Android pantesting reports</h3>
+            <hr>
+            <p> Option 1: Using pip</p>
+            <h3> pip install droidsentinel</h3>
+            <p> Option 2: From source</p> 
+            <a href="https://github.com/ch3tanbug/DroidSentinel.git"> <b>github</b></a>
+            <p> cd DroidSentinel</p>
+            <h4>pip install-r requirements.tx</h4>
+           
+        </div>
+
+        <div class="doc-item">
+        
+           <h3>�Usage Basic Scan�</h3>   
+           <hr>
+           <h5>python droidsentinel.py </h5>
+        
+           <h5>path/to/your/app.apk</h5> 
+             <h5>If installed via pip:</h5>
+             <h5>droidsentinel path/to/your/app.apk🔧</h5>
+             <br>
+             <br>
+             <a href="">Read more...</a>
+            
+        </div>
+
+
+
+        <div class="doc-item">
+           <h3> Command-line Options-o</h3>
+           <hr> 
+              <p> : Save the results to a JSON or text file-v  </p>
+              <p>or --verbose </p> 
+              <p> : Enable detailed output--no-color </p>
+              <p> : Disable colored console output--apktool </p>
+              <p>: Use a custom path for apktoo</p> 
+              <br>
+              <a href="">Read more...</a>
+        </div>
+
+
+
+        <div class="doc-item">
+            <h3>�API Keys & Secrets�</h3>
+            <hr>
+            <tr>
+                <td>
+                    Google, Facebook, Twitter API keys
+                </td>  
+                <br>
+                
+                <br>
+                <td>Authentication tokens (Bearer, JWT, Basic)</td>
+                <br>
+                <br>
+                <td>Database credentials</td>
+                <br>
+            <br>
+                <td>Hardcoded passwords and secret keys</td>
+                
+            </tr>
+            <br>
+            <br>
+            <a href="https://github.com/FancybearIN/Dsec/blob/main/Builder.md">Read more...</a>
+           
+        </div>
+
+
+        <div class="doc-item">
+            <h3>Exported Components</h3>
+            <hr>
+            <br>
+            <p> Insecure activities accessible by other apps</p>
+            <p>Public services started by third partiess</p>
+            <p>Broadcast receivers exposed to the system</p>
+            <p>Public content providers</p>
+     
+
+            <br>
+            <br>
+            <a href="">Read more...</a>
+        </div>
+
+        <div class="doc-item"> 
+
+        <h3>�WebView Vulnerabilities</h3>
+        <hr>
+        <br>
+        
+        <p> Insecure JavaScript-enabled WebView</p>
+        <p>File access enabled in WebView</p>
+        <p> SSL error handling bypasses</p>
+        <p>JavaScript interfaces vulnerable to injection</p>
+        <br>
+        <br>
+        <a href="https://github.com/FancybearIN/Dsec/blob/main/DroidSentinel.md">Read more...</a>
+        </div>
+
+        <div class="doc-item"> 
+            <h3>⚠ Other Security Issues</h3>
+            <hr>
+            <br>
+            <p> Insecure file permissions</p>
+            <p>Improper SSL/TLS implementations</p>
+            <p> Insecure cryptographic methods</p>
+            <p> Dangerous permissions usage</p>
+            <br>
+            <br>
+            <a href="https://github.com/FancybearIN/Dsec/blob/main/DroidSentinel.md">Read more...</a>
+        </div>
+        <div class="doc-item"> 
+ <h3> <a href="https://github.com/FancybearIN/Dsec/blob/main/DroidSentinel.md">Sample Output and Contribution</a></h3>
+ <hr>
+
+ <h5>Fork the repository</h5>
+ <p>Create a new branch (git checkout -b feature/new-feature  )</p>
+<p>( git commit -m "Add new feature" )</p>  
+<p>(git push origin feature/new-feature )</p> 
+
+
+        </div>
+
+        <div class="doc-item"> 
+            <h3>� Upcoming Features</h3>
+            <hr>
+            <h4>✨Planned Enhancements:</h4>
+            <br>
+            <p>Native Library Analysis</p>
+            <p>React Native Support</p>
+            <p>Firebase Vulnerability Detection</p>
+            <p> Deep Code Flow Analysis</p>
+            <br>
+            <a href="https://github.com/FancybearIN/Dsec/blob/main/DroidSentinel.md"></a>
+        </div>
+    </div>
+</section>
+
+
+    <section id="contact" class="contact">
+        <form onsubmit="sendEmail(); reset(); return false;"> 
+            <h2>Contact Us</h2>
+            <div class="contact-form">
+                <input type="text" id="name" placeholder="Your Name">
+                <input type="email" id="email" placeholder="Your Email">
+                <textarea id="message" placeholder="Your Message"></textarea>
+                <button onclick="submitForm()">Send</button>
+            </div>
+        </form>
+
+    </section>
+
+
+
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+
+    <script>
+        function sendEmail() {
+            Email.send({
+                Host : "smtp.gmail.com",    //"s1.maildns.net",
+                Username : "shivamkumar2203891@gmail.com",
+                Password : "Kumar@29540",
+                To : 'xyz8340@gmail.com',
+                From : document.getElementById("email").value,
+                Subject : "New Contact Form Enquiry",
+                Body : "And this is the body"
+            }).then(
+              message => alert(message)
+            );
+
+        }
+
+
+
+        
+        //For uploading apk file
+        // function uploadAPK() {
+      //      let apkFileInput = document.getElementById("apkFile");
+        //    let apkFile = apkFileInput.files[0];
+
+          //  if (!apkFile) {
+              //  alert("Please select an APK file.");
+               // return;
+          //  }
+
+           // let formData = new FormData();
+           // formData.append("apk_file", apkFile);
+
+            // fetch("http://127.0.0.1:8000/process-apk/", {
+               // method: "POST",
+              //  body: formData
+        //    })
+        //    .then(response => response.json())
+           // .then(data => {
+         //       document.getElementById("uploadResult").innerHTML =
+             //       `<strong>${data.message}</strong><br>
+               //     APK Analysis Result: ${data.apk_result}`;
+           // })
+           // .catch(error => console.error("Error:", error));
+        //}
+
+        async function uploadApk() {
+            let fileInput = document.getElementById("apkFile");
+            let formData = new FormData();
+            formData.append("apk", fileInput.files[0]);
+        
+            let response = await fetch("http://localhost:5000/upload-apk", {
+                method: "POST",
+                body: formData
+            });
+        
+            let result = await response.json();
+            alert(result.message);
+        }
+        
+        async function scanApk() {
+            let fileName = document.getElementById("apkFile").files[0].name;
+        
+            let response = await fetch("http://localhost:5000/scan-apk", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ fileName })
+            });
+        
+            let result = await response.json();
+            alert(result.message + "\n" + result.result);
+        }
+
+
+
+
+        
+        //for text editior
+        let editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
+            mode: "javascript",
+            theme: "default",
+            lineNumbers: true
+        });
+
+        document.getElementById("languageSelect").addEventListener("change", function() {
+            let mode = this.value;
+            editor.setOption("mode", mode);
+        });
+
+        document.getElementById("fileInput").addEventListener("change", function(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    editor.setValue(e.target.result);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+
+
+
+
+        function downloadCode() {
+            let code = editor.getValue();
+            let blob = new Blob([code], { type: "text/plain" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob); 
+            a.download = "code.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+
+        //for blog
+
+       // function addBlogPost() {
+            //let title = document.getElementById("blogTitle").value;
+           // let content = document.getElementById("blogContent").value;
+           // if (title && content) {
+                //let blogContainer = document.getElementById("blog-container");
+               // let blogPost = document.createElement("div");
+               // blogPost.className = "blog-post";
+                //blogPost.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
+                //blogContainer.appendChild(blogPost);
+               // document.getElementById("blogTitle").value = "";
+              //  document.getElementById("blogContent").value = "";
+           // } else {
+                //alert("Please fill in both title and content.");
+           // }
+        //}
+        function addBlogPost() {
+            let title = document.getElementById("blogTitle").value;
+            let content = document.getElementById("blogContent").value;
+            
+            if (title && content) {
+                let blogContainer = document.getElementById("blog-container");
+                let blogPost = document.createElement("div");
+                blogPost.className = "blog-post";
+                
+                blogPost.innerHTML = `
+                    <h3>${title}</h3>
+                    <p>${content}</p>
+                    <button class="delete-btn" onclick="deleteBlogPost(this)">Delete</button>
+                `;
+                
+                blogContainer.appendChild(blogPost);
+                
+                // Clear input fields
+                document.getElementById("blogTitle").value = "";
+                document.getElementById("blogContent").value = "";
+            } else {
+                alert("Please fill in both title and content.");
+            }
+        }
+    
+        function deleteBlogPost(button) {
+            button.parentElement.remove();  // Removes the blog post
+        }
+        
+//for nav
+        function submitForm() {
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let message = document.getElementById('message').value;
+            
+            if (name && email && message) {
+                alert('Thank you, ' + name + '! Your message has been sent.');
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(event) {
+                event.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+    <footer>
+        <p>&copy; 2025 Your Company. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
