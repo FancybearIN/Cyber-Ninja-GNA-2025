@@ -1,0 +1,26 @@
+{
+  "name": "hacothon",
+  "version": "1.0.0",
+  "description": "![DroidSentinel Banner](https://img.shields.io/badge/DroidSentinel-Android%20Security%20Scanner-blue?style=for-the-badge) [![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priyanshukumargupta12/Cyber-Ninja-GNA-2025.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/priyanshukumargupta12/Cyber-Ninja-GNA-2025/issues"
+  },
+  "homepage": "https://github.com/priyanshukumargupta12/Cyber-Ninja-GNA-2025#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.2"
+  }
+}

@@ -52,9 +52,14 @@
 <hr>
     <section id="apk-upload" class="apk-upload">
         <h2>Upload APK File</h2>
-        <input type="file" id="apkFile" accept=".apk">
+        <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">Scan APK</button>
+    
+    <h3>Scan Result:</h3>
+    <pre id="output"></pre>
+        <!-- <input type="file" id="apkFile" accept=".apk">
         <button onclick="uploadAPK()">Upload APK</button>
-        <p id="uploadResult"></p>
+        <p id="uploadResult"></p> -->
         
 
         
@@ -337,31 +342,23 @@
            // .catch(error => console.error("Error:", error));
         //}
 
-        async function uploadApk() {
-            let fileInput = document.getElementById("apkFile");
-            let formData = new FormData();
+        async function uploadFile() {
+            const fileInput = document.getElementById("fileInput");
+            if (!fileInput.files.length) {
+                alert("Please select an APK file to upload");
+                return;
+            }
+
+            const formData = new FormData();
             formData.append("apk", fileInput.files[0]);
-        
-            let response = await fetch("http://localhost:5000/upload-apk", {
+
+            const response = await fetch("http://localhost:5000/upload", {
                 method: "POST",
-                body: formData
+                body: formData,
             });
-        
-            let result = await response.json();
-            alert(result.message);
-        }
-        
-        async function scanApk() {
-            let fileName = document.getElementById("apkFile").files[0].name;
-        
-            let response = await fetch("http://localhost:5000/scan-apk", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ fileName })
-            });
-        
-            let result = await response.json();
-            alert(result.message + "\n" + result.result);
+
+            const result = await response.json();
+            document.getElementById("output").textContent = JSON.stringify(result, null, 2);
         }
 
 
