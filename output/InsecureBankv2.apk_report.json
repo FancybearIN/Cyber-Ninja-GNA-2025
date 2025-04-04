@@ -1,0 +1,74 @@
+   {
+    "api_keys": [],
+    "exported_activities": [
+        {
+            "type": "activity",
+            "name": "com.android.insecurebankv2.LoginActivity",
+            "has_permission": false,
+            "permission": null,
+            "explicitly_exported": false,
+            "has_intent_filter": true,
+            "intent_actions": [
+                "android.intent.action.MAIN"
+            ]
+        },
+        {
+            "type": "activity",
+            "name": "com.android.insecurebankv2.PostLogin",
+            "has_permission": false,
+            "permission": null,
+            "explicitly_exported": true,
+            "has_intent_filter": false,
+            "intent_actions": []
+        },
+        {
+            "type": "activity",
+            "name": "com.android.insecurebankv2.DoTransfer",
+            "has_permission": false,
+            "permission": null,
+            "explicitly_exported": true,
+            "has_intent_filter": false,
+            "intent_actions": []
+        },
+        {
+            "type": "activity",
+            "name": "com.android.insecurebankv2.ViewStatement",
+            "has_permission": false,
+            "permission": null,
+            "explicitly_exported": true,
+            "has_intent_filter": false,
+            "intent_actions": []
+        },
+        {
+            "type": "activity",
+            "name": "com.android.insecurebankv2.ChangePassword",
+            "has_permission": false,
+            "permission": null,
+            "explicitly_exported": true,
+            "has_intent_filter": false,
+            "intent_actions": []
+        },
+        {
+            "type": "receiver",
+            "name": "com.android.insecurebankv2.MyBroadCastReceiver",
+            "has_permission": false,
+            "permission": null,
+            "explicitly_exported": true,
+            "has_intent_filter": true,
+            "intent_actions": [
+                "theBroadcast"
+            ]
+        },
+        {
+            "type": "provider",
+            "name": "com.android.insecurebankv2.TrackUserContentProvider",
+            "has_permission": false,
+            "permission": null,
+            "explicitly_exported": true,
+            "has_intent_filter": false,
+            "intent_actions": []
+        }
+    ],
+    "webview_issues": [],
+    "other_issues": []
+}

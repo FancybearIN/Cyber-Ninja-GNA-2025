@@ -44,6 +44,11 @@ class APKAnalyzer:
         
     def check_apktool_installed(self):
         """Check if apktool is installed, if not, install it."""
+        # Check if Java is installed
+        if not shutil.which("java"):
+            print(f"{Fore.RED}[!] Java is not installed or not in PATH. Please install Java and try again.{Style.RESET_ALL}")
+            return False
+
         try:
             result = subprocess.run(["apktool", "--version"], capture_output=True, text=True)
             print(f"{Fore.GREEN}[+] apktool is installed:{Style.RESET_ALL} {result.stdout.strip()}")
@@ -51,17 +56,34 @@ class APKAnalyzer:
         except FileNotFoundError:
             print(f"{Fore.RED}[!] apktool not found. Attempting to install...{Style.RESET_ALL}")
             
+            # Check if apktool.jar and apktool.bat already exist in the tools directory
+            tools_dir = os.path.join(os.getcwd(), "tools")
+            apktool_jar_path = os.path.join(tools_dir, "apktool.jar")
+            apktool_bat_path = os.path.join(tools_dir, "apktool.bat")
+            
+            if os.path.exists(apktool_jar_path) and os.path.exists(apktool_bat_path):
+                # Add tools directory to PATH if not already added
+                if tools_dir not in os.environ["PATH"]:
+                    os.environ["PATH"] += os.pathsep + tools_dir
+                
+                # Verify apktool.bat functionality
+                try:
+                    result = subprocess.run(["apktool", "--version"], capture_output=True, text=True)
+                    print(f"{Fore.GREEN}[+] apktool is installed and functional:{Style.RESET_ALL} {result.stdout.strip()}")
+                    return True
+                except Exception as e:
+                    print(f"{Fore.RED}[!] apktool.bat exists but is not functional: {e}{Style.RESET_ALL}")
+                    print(f"{Fore.RED}[!] Ensure 'apktool.bat' references the correct path to 'apktool.jar'.{Style.RESET_ALL}")
+                    return False
+            
             if sys.platform == "win32":
                 try:
                     # URLs for apktool files
                     apktool_jar_url = "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.8.1.jar"
                     apktool_bat_url = "https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/windows/apktool.bat"
                     
-                    # Paths to save the files
-                    tools_dir = os.path.join(os.getcwd(), "tools")
+                    # Create tools directory if it doesn't exist
                     os.makedirs(tools_dir, exist_ok=True)
-                    apktool_jar_path = os.path.join(tools_dir, "apktool.jar")
-                    apktool_bat_path = os.path.join(tools_dir, "apktool.bat")
                     
                     # Download apktool.jar
                     print(f"{Fore.BLUE}[*] Downloading apktool.jar...{Style.RESET_ALL}")
@@ -96,6 +118,11 @@ class APKAnalyzer:
 
     def decompile_apk(self):
         """Decompile the APK using apktool."""
+        # Check if apktool is available in the system's PATH
+        if not shutil.which("apktool"):
+            print(f"{Fore.RED}[!] Error: 'apktool' is not installed or not in PATH.{Style.RESET_ALL}")
+            return False
+
         if not os.path.exists(self.apk_path):
             print(f"{Fore.RED}[!] APK file not found: {self.apk_path}{Style.RESET_ALL}")
             return False
@@ -109,8 +136,12 @@ class APKAnalyzer:
                            check=True, capture_output=True, text=True)
             print(f"{Fore.GREEN}[+] Decompilation successful{Style.RESET_ALL}")
             return True
+        except FileNotFoundError as e:
+            print(f"{Fore.RED}[!] FileNotFoundError: {e}{Style.RESET_ALL}")
+            print(f"{Fore.RED}[!] Ensure 'apktool' is installed and accessible.{Style.RESET_ALL}")
+            return False
         except subprocess.CalledProcessError as e:
-            print(f"{Fore.RED}[!] Decompilation failed: {e.stderr}{Style.RESET_ALL}")
+            print(f"{Fore.RED}[!] Error during APK decompilation: {e.stderr}{Style.RESET_ALL}")
             return False
 
     def analyze_manifest_for_exported_components(self):
@@ -203,9 +234,20 @@ class APKAnalyzer:
         """Print all findings in a structured format with colors."""
         # Implementation remains unchanged...
 
-    def save_report(self, filename):
-        """Save findings to a report file."""
-        # Implementation remains unchanged...
+    def save_report(self):
+        """Save findings to a JSON report file in the output folder."""
+        output_dir = os.path.join(os.getcwd(), "output")
+        os.makedirs(output_dir, exist_ok=True)  # Ensure the output folder exists
+
+        report_filename = f"{self.app_name}_report.json"
+        report_path = os.path.join(output_dir, report_filename)
+
+        try:
+            with open(report_path, "w", encoding="utf-8") as report_file:
+                json.dump(self.findings, report_file, indent=4)
+            print(f"{Fore.GREEN}[+] Report saved to: {report_path}{Style.RESET_ALL}")
+        except Exception as e:
+            print(f"{Fore.RED}[!] Failed to save report: {e}{Style.RESET_ALL}")
 
     def cleanup(self):
         """Clean up decompiled directory."""
@@ -233,11 +275,8 @@ def main():
             analyzer.check_other_vulnerabilities()
             analyzer.print_findings()
             
-            # Ask user if they want to save the report
-            save_report = input("\nSave report to file? (Enter filename or press Enter to skip): ").strip()
-            if save_report:
-                analyzer.save_report(save_report)
-                
+            # Automatically save the report
+            analyzer.save_report()
         finally:
             analyzer.cleanup()
 
